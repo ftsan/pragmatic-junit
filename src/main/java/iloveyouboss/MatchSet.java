@@ -1,17 +1,22 @@
 package iloveyouboss;
 
-import java.util.Map;
-
 /**
  * Created by futeshi on 2015/10/14.
  */
-public class MatchSet {
+public class MatchSet implements Comparable<MatchSet> {
     private AnswerCollection answers;
     private Criteria criteria;
+    private int score = Integer.MIN_VALUE;
+    private String profileId;
 
-    public MatchSet(AnswerCollection answers, Criteria criteria) {
+    public MatchSet(String profileId, AnswerCollection answers, Criteria criteria) {
+        this.profileId = profileId;
         this.answers = answers;
         this.criteria = criteria;
+    }
+
+    public String getProfileId() {
+        return this.profileId;
     }
 
     public boolean matches() {
@@ -27,11 +32,12 @@ public class MatchSet {
 
     /**
      * 必須条件のチェック
+     *
      * @param criteria
      * @return 必須条件にマッチしなければtrue
      */
     private boolean doesNotMeetAnyMustMatchCriterion(Criteria criteria) {
-        for (Criterion criterion: criteria) {
+        for (Criterion criterion : criteria) {
             boolean match = criterion.matches(answerMatching(criterion));
 
             if (!match && criterion.getWeight() == Weight.MustMatch) {
@@ -50,7 +56,6 @@ public class MatchSet {
     }
 
 
-
     public int getScore() {
         int score = 0;
         for (Criterion criterion : criteria) {
@@ -59,5 +64,11 @@ public class MatchSet {
             }
         }
         return score;
+    }
+
+
+    @Override
+    public int compareTo(MatchSet that) {
+        return new Integer(getScore()).compareTo(new Integer(that.getScore()));
     }
 }

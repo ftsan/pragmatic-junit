@@ -2,18 +2,17 @@ package iloveyouboss;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class Profile {
     private AnswerCollection answers = new AnswerCollection();
-    private String name;
+    private String id;
 
-    public Profile(String name) {
-        this.name = name;
+    public Profile(String id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     public void add(Answer answer) {
@@ -21,13 +20,13 @@ public class Profile {
     }
 
     public MatchSet getMatchSet(Criteria criteria) {
-        return new MatchSet(answers, criteria);
+        return new MatchSet(id, answers, criteria);
     }
 
 
     @Override
     public String toString() {
-        return name;
+        return id;
     }
 
     public List<Answer> find(Predicate<Answer> pred) {

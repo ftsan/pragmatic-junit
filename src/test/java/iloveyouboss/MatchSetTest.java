@@ -1,18 +1,16 @@
 package iloveyouboss;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
-
-import org.junit.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by futeshi on 2015/10/15.
  */
 public class MatchSetTest {
+    private static final String PROFILE_ID = "1";
     private Criteria criteria;
     private Question questionReimbursesTuition;
 
@@ -110,6 +108,6 @@ public class MatchSetTest {
     }
 
     private MatchSet createMatchSet() {
-        return new MatchSet(answers, criteria);
+        return new MatchSet(PROFILE_ID, answers, criteria);
     }
 }
